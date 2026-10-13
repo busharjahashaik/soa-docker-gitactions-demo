@@ -1,3 +1,4 @@
+
 services:
   postgresdb:
     image: postgres:16-alpine
@@ -12,10 +13,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - springboot-postgres-net
+    restart: on-failure
 
   backend:
     image: busharjahashaik/docker-git-actions-backend:latest
     container_name: docker-springboot
+    platform: linux/amd64
     ports:
       - "2025:2000"
     depends_on:
@@ -27,6 +30,7 @@ services:
   frontend:
     image: busharjahashaik/docker-git-actions-frontend:latest
     container_name: docker-react
+    platform: linux/amd64
     ports:
       - "3000:80"
     depends_on:
